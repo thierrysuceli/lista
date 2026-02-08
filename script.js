@@ -1,8 +1,8 @@
 // Configuração do Supabase REST API
 const SUPABASE_URL = 'https://oducerahpqqqeeycyadg.supabase.co';
-const SUPABASE_SERVICE_KEY = 'sb_secret_11xlfC2o-g1GXJiFr_gOHg_stEAwmTd';
+const SUPABASE_SERVICE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9kdWNlcmFocHFxcWVleWN5YWRnIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3MDU0MzM0NSwiZXhwIjoyMDg2MTE5MzQ1fQ.18igN69OJAJagruX8HjbmLothxf5OHyeoOgV06QJVgo';
 
-// Headers com SERVICE_ROLE (bypass RLS)
+// Headers com SERVICE_ROLE KEY
 const headers = {
     'apikey': SUPABASE_SERVICE_KEY,
     'Authorization': `Bearer ${SUPABASE_SERVICE_KEY}`,
