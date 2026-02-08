@@ -28,34 +28,15 @@ document.addEventListener('DOMContentLoaded', async () => {
 // Carregar itens do banco
 async function loadItems() {
     try {
-        // Buscar itens com grupos
+        // Buscar itens com grupos e usuários em uma única query
         const response = await fetch(
-            `${SUPABASE_URL}/rest/v1/itens?lista_id=eq.${LISTA_ID}&ativo=eq.true&select=*,grupos(id,nome,cor,ordem)`,
+            `${SUPABASE_URL}/rest/v1/itens?lista_id=eq.${LISTA_ID}&ativo=eq.true&select=*,grupos(id,nome,cor,ordem),itens_usuarios(quantidade_pegada,data_retirada,usuarios(id,nome))&order=nome`,
             { headers }
         );
         
         if (!response.ok) throw new Error('Erro ao carregar itens');
         
         const data = await response.json();
-        
-        // Buscar usuários para cada item
-        for (let item of data) {
-            const usersResponse = await fetch(
-                `${SUPABASE_URL}/rest/v1/itens_usuarios?item_id=eq.${item.id}&select=*,usuarios(id,nome)`,
-                { headers }
-            );
-            
-            if (usersResponse.ok) {
-                const usuarios = await usersResponse.json();
-                item.pickedBy = usuarios.map(u => ({
-                    name: u.usuarios.nome,
-                    quantity: parseFloat(u.quantidade_pegada),
-                    timestamp: u.data_retirada
-                }));
-            } else {
-                item.pickedBy = [];
-            }
-        }
         
         // Converter para formato do frontend
         items = data.map(item => ({
@@ -65,7 +46,11 @@ async function loadItems() {
             name: item.nome,
             totalQuantity: parseFloat(item.quantidade_total),
             unit: item.unidade_medida,
-            pickedBy: item.pickedBy || []
+            pickedBy: (item.itens_usuarios || []).map(iu => ({
+                name: iu.usuarios.nome,
+                quantity: parseFloat(iu.quantidade_pegada),
+                timestamp: iu.data_retirada
+            }))
         }));
         
     } catch (error) {
