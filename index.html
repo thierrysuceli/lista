@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carnaval do Apostolado Seja Santo - Lista de Compras</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎭 Carnaval do Apostolado Seja Santo</h1>
+            <div class="progress-general">
+                <div class="progress-label">Progresso Geral da Lista</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressGeneral"></div>
+                    <span class="progress-text" id="progressGeneralText">0%</span>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <!-- Formulário para adicionar item -->
+            <section class="add-item-section">
+                <button type="button" class="btn-toggle-add" id="toggleAddBtn">
+                    ➕ Adicionar Item
+                </button>
+                <div class="add-item-form" id="addItemFormContainer" style="display: none;">
+                    <form id="addItemForm">
+                        <div class="form-group">
+                            <label for="itemGroup">Grupo:</label>
+                            <select id="itemGroup" required>
+                                <option value="Mercado">Mercado</option>
+                                <option value="Açougue">Açougue</option>
+                                <option value="Hortifruti">Hortifruti</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="itemName">Nome do Item:</label>
+                            <input type="text" id="itemName" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="itemQuantity">Quantidade:</label>
+                                <input type="number" id="itemQuantity" min="0.01" step="0.01" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="itemUnit">Unidade:</label>
+                                <select id="itemUnit" required>
+                                    <option value="kg">Kg</option>
+                                    <option value="g">Gramas</option>
+                                    <option value="l">Litros</option>
+                                    <option value="ml">ml</option>
+                                    <option value="un">Unidade(s)</option>
+                                    <option value="cx">Caixa(s)</option>
+                                    <option value="pct">Pacote(s)</option>
+                                    <option value="maços">Maços</option>
+                                    <option value="pés">Pés</option>
+                                    <option value="dúzias">Dúzias</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-primary">Adicionar Item</button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Lista de itens -->
+            <section class="items-section">
+                <h2>📋 Lista de Compras</h2>
+                <div id="itemsList"></div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modal para pegar item -->
+    <div id="pickItemModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Pegar Item</h2>
+            <div id="modalItemName" class="modal-item-name"></div>
+            <div id="modalItemTotal" class="modal-item-total"></div>
+            
+            <form id="pickItemForm">
+                <div class="form-group">
+                    <label for="userName">Seu Nome:</label>
+                    <input type="text" id="userName" required>
+                </div>
+                <div class="form-group">
+                    <label for="userQuantity">Quantidade:</label>
+                    <input type="number" id="userQuantity" min="0.01" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="pickAll">
+                        Pegar tudo que resta
+                    </label>
+                </div>
+                <button type="submit" class="btn-primary">Confirmar</button>
+            </form>
+
+            <!-- Lista de usuários que já pegaram -->
+            <div class="users-list-section">
+                <h3>👥 Quem já pegou:</h3>
+                <div id="usersList"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
